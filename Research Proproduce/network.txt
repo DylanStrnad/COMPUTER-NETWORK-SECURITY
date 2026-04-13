@@ -1,4 +1,35 @@
+<<<<<<< HEAD
 flow_id:101, match:in_port=1, action:output=2
 flow_id:102, match:in_port=2, action:output=1
 flow_id:666, match:any, action:drop  
 flow_id:667, match:any, action:drop  
+=======
+flow_id:101, match:in_port=1, action:output=2
+flow_id:102, match:in_port=2, action:output=1
+flow_id:103, match:in_port=3, action:output=4
+flow_id:104, match:eth_type=0x0806, action:flood
+flow_id:105, match:in_port=1, dl_vlan=10, action:output=3
+flow_id:106, match:nw_proto=6, tp_dst=80, action:output=5
+flow_id:107, match:nw_proto=1, action:drop
+flow_id:108, match:eth_src=00:00:00:00:00:01, action:output=2
+flow_id:109, match:eth_dst=ff:ff:ff:ff:ff:ff, action:output=all
+flow_id:110, match:in_port=4, dl_type=0x0800, action:set_field:10.0.0.1->nw_dst,output=1
+flow_id:111, match:in_port=5, action:push_vlan:0x8100,set_field:20->vlan_vid,output=6
+flow_id:112, match:tp_src=443, action:output=port:LOCAL
+flow_id:113, match:nw_src=192.168.1.0/24, action:output=7
+flow_id:114, match:in_port=2, eth_type=0x86dd, action:output=8
+flow_id:666, match:any, action:drop
+flow_id:201, match:nw_proto=1, action:drop (Silently drops all ICMP/Ping traffic) 
+flow_id:202, match:tp_dst=22, action:output=5 (Redirects SSH traffic to a specific port for sniffing) 
+flow_id:203, match:eth_src=00:1A:2B:3C:4D:5E, action:drop (Blacklists a specific device without admin knowledge) 
+flow_id:204, match:tp_dst=80, action:set_field:10.0.0.99->nw_dst,output=2 (Redirects HTTP traffic to a rogue server) 
+flow_id:205, match:in_port=1, action:output=all (Broadcasts all incoming traffic from port 1, causing a potential loop/flood) 
+flow_id:206, match:nw_src=10.0.0.5, action:drop (Isolates a specific internal server) 
+flow_id:207, match:eth_type=0x0806, action:output=3 (Intercepts ARP requests for Man-in-the-Middle attacks) 
+flow_id:208, match:tp_src=443, action:drop (Silently blocks secure web traffic) 
+flow_id:209, match:in_port=4, dl_vlan=100, action:output=1 (Unauthorized VLAN hopping or bypass) 
+flow_id:210, match:nw_proto=17, tp_dst=53, action:output=6 (Intercepts DNS queries to a malicious resolver) 
+flow_id:211, match:eth_dst=01:80:C2:00:00:00, action:drop (Blocks Spanning Tree Protocol packets to cause network loops) 
+flow_id:212, match:in_port=2, dl_type=0x86dd, action:drop (Silently disables IPv6 traffic on port 2)
+
+>>>>>>> 9209689943fbaa54ea65c2094828fa36e2ad1dfd
