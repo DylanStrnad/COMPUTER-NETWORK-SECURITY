@@ -1,0 +1,4 @@
+flow_id:101, match:in_port=1, action:output=2
+flow_id:102, match:in_port=2, action:output=1
+flow_id:666, match:any, action:drop  
+flow_id:667, match:any, action:drop  
