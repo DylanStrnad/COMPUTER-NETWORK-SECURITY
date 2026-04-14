@@ -3,6 +3,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 from tkinter.scrolledtext import ScrolledText
+import time
 
 
 def parse_truth_file(path: str) -> dict:
@@ -63,6 +64,9 @@ def parse_report_file(path: str) -> dict:
 
     return flows
 
+def print_execution_time(start, end):
+    total_time = (end - start) * 1000
+    print(f"{total_time:.2f}ms")
 
 def run_audit(truth_path: str, report_path: str):
     truth_flows = parse_truth_file(truth_path)
@@ -96,7 +100,7 @@ def run_audit(truth_path: str, report_path: str):
     return summary, truth_flows, report_flows
 
 
-def build_report_text(summary: dict, truth_flows: dict, report_flows: dict) -> str:
+def build_report_text(summary: dict, truth_flows: dict, report_flows: dict, start_time, end_time) -> str:
     lines = [
         "=== SDN Flow Audit ===",
         f"Switch truth flows:      {summary['truth_count']}",
@@ -140,6 +144,9 @@ def build_report_text(summary: dict, truth_flows: dict, report_flows: dict) -> s
         lines.append("\nSECURITY INCIDENT FOUND")
     else:
         lines.append("\nAudit complete. No incident detected.")
+
+    total = (end_time - start_time) * 1000
+    lines.append (f"Total run time: {total:.2f}ms")
 
     return "\n".join(lines)
 
@@ -223,7 +230,9 @@ class AuditApp:
             return
 
         try:
+            start_time = time.time()
             summary, truth_flows, report_flows = run_audit(truth_path, report_path)
+            end_time = time.time()
         except FileNotFoundError as exc:
             messagebox.showerror("File error", f"Input file not found:\n{exc}")
             return
@@ -233,8 +242,8 @@ class AuditApp:
         except ValueError as exc:
             messagebox.showerror("Data error", str(exc))
             return
-
-        report_text = build_report_text(summary, truth_flows, report_flows)
+        
+        report_text = build_report_text(summary, truth_flows, report_flows, start_time, end_time)
         self.output_box.delete("1.0", tk.END)
         self.output_box.insert(tk.END, report_text)
 
@@ -256,51 +265,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-# import json
-# import time
-
-# def print_execution_time(start, end):
-#     total_time = (end - start) * 1000
-#     print(f"{total_time}ms")
-
-# def runAudit(truth,report):
-#     start_time = time.time()
-#     with open(report, 'r') as f:
-#         data = json.load(f)
-#         reported_ids = [flow['id'] for flow in data['flows']]
-#         print("Reported IDs:", reported_ids)
-
-#     ## Comparing Reported data with real data
-#     hidden_found = False
-#     with open(truth, 'r') as f:
-#         #file storing malicious flow rules
-#         with open("malicious_message_store.txt","w") as message_store:
-#             message_store.write("MALICIOUS FLOW RULES DETECTED:\n")
-
-#         for line in f:
-#             if "flow_id:" in line:
-#                 actual_id = line.split(",")[0].split(":")[1]
-
-#                 if actual_id not in reported_ids:
-#                     print(f"Hidden Flow Detected! ID: {actual_id}")
-#                     print(f"Detail: {line.strip()}")
-#                     hidden_found = True
-#                     #store flow rule
-#                     with open("malicious_message_store.txt", "a") as message_store:
-#                         message_store.write(f"{line.strip()}\n")
-#                 else:
-#                     print(f"[+] Flow {actual_id} verified.")
-
-#     if not hidden_found:
-#         print("Audit Completed")
-#         with open("malicious_message_store.txt", "a") as message_store:
-#             message_store.write("none\n")
-#     else:
-#         print("SECURITY INCIDENT FOUND")
-
-#     end_time = time.time()
-#     print_execution_time(start_time,end_time)
-
-# runAudit("network.txt","report.json")
-
