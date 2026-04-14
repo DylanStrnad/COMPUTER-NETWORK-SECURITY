@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-{
-    "flows": [
-        {"id": "101", "match": "in_port=1", "action": "output=2"},
-        {"id": "102", "match": "in_port=2", "action": "output=1"},
-        {"id": "103", "match": "in_port=3", "action": "output=3"}
-    ]
-=======
 {
     "flows": [
         {"id": "101", "match": "in_port=1", "action": "output=2"},
@@ -23,5 +15,4 @@
         {"id": "113", "match": "nw_src=192.168.1.0/24", "action": "output=7"},
         {"id": "114", "match": "in_port=2, eth_type=0x86dd", "action": "output=8"}
     ]
->>>>>>> 9209689943fbaa54ea65c2094828fa36e2ad1dfd
 }

@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-flow_id:101, match:in_port=1, action:output=2
-flow_id:102, match:in_port=2, action:output=1
-flow_id:666, match:any, action:drop  
-flow_id:667, match:any, action:drop  
-=======
 flow_id:101, match:in_port=1, action:output=2
 flow_id:102, match:in_port=2, action:output=1
 flow_id:103, match:in_port=3, action:output=4
@@ -32,4 +26,3 @@ flow_id:210, match:nw_proto=17, tp_dst=53, action:output=6 (Intercepts DNS queri
 flow_id:211, match:eth_dst=01:80:C2:00:00:00, action:drop (Blocks Spanning Tree Protocol packets to cause network loops) 
 flow_id:212, match:in_port=2, dl_type=0x86dd, action:drop (Silently disables IPv6 traffic on port 2)
 
->>>>>>> 9209689943fbaa54ea65c2094828fa36e2ad1dfd
