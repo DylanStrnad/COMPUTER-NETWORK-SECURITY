@@ -4,15 +4,15 @@
         {"id": "102", "match": "in_port=2", "action": "output=1"},
         {"id": "103", "match": "in_port=3", "action": "output=4"},
         {"id": "104", "match": "eth_type=0x0806", "action": "flood"},
-        {"id": "105", "match": "in_port=1, dl_vlan=10", "action": "output=3"},
-        {"id": "106", "match": "nw_proto=6, tp_dst=80", "action": "output=5"},
+        {"id": "105", "match": "in_port=1", "action": "output=3"},
+        {"id": "106", "match": "nw_proto=6", "action": "output=5"},
         {"id": "107", "match": "nw_proto=1", "action": "drop"},
         {"id": "108", "match": "eth_src=00:00:00:00:00:01", "action": "output=2"},
         {"id": "109", "match": "eth_dst=ff:ff:ff:ff:ff:ff", "action": "output=all"},
-        {"id": "110", "match": "in_port=4, dl_type=0x0800", "action": "set_field:10.0.0.1->nw_dst,output=1"},
-        {"id": "111", "match": "in_port=5", "action": "push_vlan:0x8100,set_field:20->vlan_vid,output=6"},
+        {"id": "110", "match": "in_port=4 dl_type=0x0800", "action": "set_field:10.0.0.1->nw_dst output=1"},
+        {"id": "111", "match": "in_port=5", "action": "push_vlan:0x8100 set_field:20->vlan_vid output=6"},
         {"id": "112", "match": "tp_src=443", "action": "output=port:LOCAL"},
         {"id": "113", "match": "nw_src=192.168.1.0/24", "action": "output=7"},
-        {"id": "114", "match": "in_port=2, eth_type=0x86dd", "action": "output=8"}
+        {"id": "114", "match": "in_port=2 eth_type=0x86dd", "action": "output=8"}
     ]
 }
