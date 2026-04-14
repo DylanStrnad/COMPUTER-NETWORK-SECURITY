@@ -64,9 +64,6 @@ def parse_report_file(path: str) -> dict:
 
     return flows
 
-def print_execution_time(start, end):
-    total_time = (end - start) * 1000
-    print(f"{total_time:.2f}ms")
 
 def run_audit(truth_path: str, report_path: str):
     truth_flows = parse_truth_file(truth_path)
